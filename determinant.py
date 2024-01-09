@@ -1,5 +1,3 @@
-@ determinant.py
-
 '''
 Recursively finding the determinant of a square matrix
 '''
