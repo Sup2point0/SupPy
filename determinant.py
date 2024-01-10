@@ -19,7 +19,6 @@ def crop(trix, col, row):
   return [part(each, col) for each in part(trix, row)]
 
 def score(seq) -> int:
-  '''
   sc = 0
   for each in seq:
     if each == 0:
