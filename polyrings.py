@@ -51,6 +51,7 @@ class Test:
     self.d = 90
     self.sides = sides
     self.size = size
+    self.chir = 1
 
   def start(self):
     print("status: next test started")
@@ -69,8 +70,10 @@ class Test:
   def next(self):
     print("exec: next draw")
 
-    data = self.shape.draw(self.cx, self.cy, self.cd)
+    data = self.shape.draw(self.cx, self.cy, self.cd, self.chir)
     self.cx, self.cy, self.cd = data
+    self.chir = -self.chir
+    
     py.display.flip()
 
 
