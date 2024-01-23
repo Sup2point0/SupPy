@@ -22,8 +22,7 @@ class Polygon:
     Depending on chirality, this returns either the 2nd point or penultimate point, alongside direction.
     '''
 
-    x, y = pos
-    points = [pos]
+    points = [(x, y)]
     out = None
 
     for i in range(1, self.sides):
@@ -40,7 +39,7 @@ class Polygon:
         if i == self.sides - 1:
           out = data
 
-    py.draw.lines(display, (255, 255, 255), closed = True, points = points)
+    py.draw.lines(display, (255, 255, 255, 255), closed = True, points = points)
 
     return out
 
@@ -54,6 +53,8 @@ class Test:
     self.size = size
 
   def start(self):
+    print("status: next test started")
+
     self.sides += 1
 
     self.shape = Polygon(self.sides, self.size)
@@ -66,22 +67,28 @@ class Test:
     display.fill((0, 23, 42))
 
   def next(self):
-    data = self.shape.draw((self.cx, self.cy), self.cd)
+    print("exec: next draw")
+
+    data = self.shape.draw(self.cx, self.cy, self.cd)
     self.cx, self.cy, self.cd = data
+    py.display.flip()
 
 
-display = py.display.set_mode((900, 900))
+display = py.display.set_mode((500, 500))
 ex = Test(400, 400, 4, 50)
 
-while True:
-  events = py.event.get()
-
-  for event in events:
+state = True
+while state:
+  for event in py.event.get():
     if event.type == py.QUIT:
+      state = False
       break
 
     elif event.type == py.KEYDOWN:
-      if event.key == py.K_RETURN:
+      if event.key == py.K_ESCAPE:
+        state = False
+        break
+      elif event.key == py.K_RETURN:
         ex.start()
       elif event.key == py.K_SPACE:
         ex.next()
