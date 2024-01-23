@@ -78,6 +78,6 @@ if __name__ == "__main__":
 
     py.display.flip()
     py.display.fill((0, 0, 0))
-    world.render(display)
+    world.render(screen)
 
   sys.exit()
