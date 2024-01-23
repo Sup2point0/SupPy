@@ -26,8 +26,8 @@ class Polygon:
     out = None
 
     for i in range(1, self.sides):
-      x += self.size * math.cos(d)
-      y += self.size * math.sin(d)
+      x += self.size * math.cos(math.radians(d))
+      y += self.size * math.sin(math.radians(d))
       d += chir * 360 / self.sides
       points.append((x, y))
 
@@ -75,7 +75,7 @@ class Test:
 
 
 display = py.display.set_mode((500, 500))
-ex = Test(400, 400, 4, 50)
+ex = Test(200, 200, 4, 50)
 
 state = True
 while state:
