@@ -50,7 +50,7 @@ class Walker:
     )
 
     for key, val in self.trace.items():
-      data[key[0] + abs(lx), key[1] + abs(ly)] = val
+      data[key[0] + abs(lx), key[1] + abs(ly)] = np.sqrt(val)
 
     return data
 
@@ -64,14 +64,15 @@ class Walker:
 if __name__ == "__main__":
   print("STATUS: RUNNING!")
 
-  plt.set_cmap(plt.viridis())
+  plt.inferno()
 
   walker = Walker("sup")
-  data = walker.walk(6942069)
+  iterations = 9999999
+  data = walker.walk(iterations)
 
   fig, ax = plt.subplots()
   fig.set_size_inches((42, 42))
   im = ax.imshow(data)
 
-  plt.savefig("renders/heatrace.png")
+  plt.savefig(f"renders/heatrace-{iterations}.png")
   print("STATUS: DONE!")
