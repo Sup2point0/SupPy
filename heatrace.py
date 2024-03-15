@@ -17,11 +17,12 @@ class Walker:
     self.y = 0
     self.trace = {(0, 0): 1}
 
-  def _step(self, vec):
-    vec += 1 if ran.randint(0, 1) else -1
-
   def step(self):
-    self._step(self.x if ran.randint(0, 1) else self.y)
+    if ran.randint(0, 1):
+      self.x += 1 if ran.randint(0, 1) else -1
+    else:
+      self.y += 1 if ran.randint(0, 1) else -1
+    
     self.trace[(self.x, self.y)] = self.trace.get((self.x, self.y), 0) + 1
 
   def export(self) -> np.ndarray:
@@ -49,7 +50,7 @@ class Walker:
     )
 
     for key, val in self.trace.items():
-      data[key[0], key[1]] = val
+      data[key[0] + abs(lx), key[1] + abs(ly)] = val
 
     return data
 
@@ -61,13 +62,16 @@ class Walker:
 
 
 if __name__ == "__main__":
+  print("STATUS: RUNNING!")
 
   plt.set_cmap(plt.viridis())
 
   walker = Walker("sup")
-  data = walker.walk(69)
+  data = walker.walk(6942069)
 
   fig, ax = plt.subplots()
+  fig.set_size_inches((42, 42))
   im = ax.imshow(data)
 
-  plt.show()
+  plt.savefig("renders/heatrace.png")
+  print("STATUS: DONE!")
